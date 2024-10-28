@@ -1,0 +1,218 @@
+﻿@using QL_CHSXM.Common
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Favicon -->
+    <link rel="icon" type="team10" href="~/Content/assets/images/favicon-web.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/bootstrap4/bootstrap.min.css">
+    <link href="~/Content/assets/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Hiển thị các sản phẩm nổi bật -->
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/OwlCarousel2-2.2.1/animate.css">
+    <!-- /End -->
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="~/Content/assets/images/favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Monoton&family=Oswald:wght@500&family=PT+Serif&family=Pacifico&family=Playfair+Display:ital@1&family=Poppins:ital,wght@1,200;1,300&family=Roboto+Condensed:ital@1&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Lexend:wght@600&family=Monoton&family=Oswald:wght@500&family=PT+Serif&family=Pacifico&family=Playfair+Display:ital@1&family=Poppins:ital,wght@1,200;1,300&family=Roboto+Condensed:ital@1&family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    <!--script_breadcrum-->
+    <link rel="stylesheet" type="text/css" href="~/Content/assets/styles/responsive.css">
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Content/assets/js/jquery-3.2.1.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/assets/styles/bootstrap.min.css">
+
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="~/Content/assets/styles/style.css">
+
+    <link rel="" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.2.0/css/all.min.css" />
+
+</head>
+<body>
+    <div class="super_container">
+
+        <!-- Header -->
+
+        <header class="header trans_400">
+
+            <!-- Top Navigation -->
+
+            <div class="top_nav">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="top_nav_left" style="font-size: 15px">Hotline:  028 3863 2052</div>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <div class="top_nav_right">
+                                <ul class="top_nav_menu">
+                                    <li class="account">
+                                        @if (!Request.IsAuthenticated)
+                                        {
+
+                                            <a href="#">
+                                                Tài khoản
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="account_selection" style="width: 155px; ">
+                                                <li><a href="/account/login">&nbsp; <i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a></li>
+                                                <li><a href="/account/Register"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng ký</a></li>
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <a href="#">
+                                                Xin chào: @User.Identity.Name
+                                                <i class="fa fa-angle-down"></i>
+                                            </a>
+                                            <ul class="account_selection">
+                                                @*<li ><a href="/"><i class="fa fa-sign-in" aria-hidden="true"></i>Thông tin</a></li>*@
+                                                <li><a href="javascript:document.getElementById('logOffForm').submit()" style="margin-left:-10px"><i class="fa fa-sign-in" aria-hidden="true"></i> Thoát ra</a></li>
+                                            </ul>
+                                        }
+
+                                    </li>
+                                </ul>
+
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <div style="display:none">
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOffForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()}
+                                    </div>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Main Navigation -->
+
+            <div class="main_nav_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <div class="logo_container">
+                                <a href="/home"><img src="~/Content/assets/images/sbtc.png" style="height:120px; width: 120px"></a>
+                                <a href="/" style="font-size: 30px; font-weight: 600">SBTC<span>&nbsp;Store</span></a>
+                            </div>
+                            <nav class="navbar">
+                                @Html.Action("MenuTop", "Menu")
+                                <ul class="navbar_user">
+                                    <li class="checkout">
+                                        <a href="/gio-hang">
+                                            <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                            <span id="checkout_items" class="checkout_items">0</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="hamburger_container">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="fs_menu_overlay"></div>
+        <div class="hamburger_menu">
+            <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+            <div class="hamburger_menu_content text-right">
+                <ul class="menu_top_nav">
+                    <li class="menu_item has-children">
+                        <a href="#">
+                            Tài khoản của tôi
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="menu_selection">
+                            <li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Đăng nhập</a></li>
+                            <li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Đăng ký</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        @RenderBody()
+        <!-- Footer -->
+        <footer class="footer-20192" style="height: 200px">
+            <div class="site-section" style="margin-top: -10px">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-sm">
+                            <a href="#" class="footer-logo" style="font-weight: 560">SBTC Store</a>
+                            <p class="copyright">
+                                <small>&copy; Nhóm 01</small>
+                            </p>
+                        </div>
+                        <div class="col-sm">
+                            <h3 style="color:white">Khách hàng</h3>
+                            <ul class="list-unstyled links">
+                                <li><a href="#">Người dùng</a></li>
+                                <li><a href="#">Người vận chuyển</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm">
+                            <h3 style="color:white">Gara SBTC</h3>
+                            <ul class="list-unstyled links">
+                                <li><a href="#">Về chúng tôi</a></li>
+                                <li><a href="/dat-lich-dich-vu">Liên hệ</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm">
+                            <h3 style="color:white">Các thông tin khác</h3>
+                            <ul class="list-unstyled links">
+                                <li><a href="#">Điều khoản &amp; dịch vụ</a></li>
+                                <li><a href="#">Chính sách bảo mật</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 style="color:white">Theo dõi chúng tôi</h3>
+                            <ul class="list-unstyled social">
+                                <li><a href="https://www.facebook.com/dgiaan04" target="_blank"><span class="fa fa-facebook"></span></a></li>
+                                <li><a href="https://gitlab.com/dinhgiaandev" target="_blank"><span class="fa fa-gitlab"></span></a></li>
+                                <li><a href="https://www.facebook.com/dgiaan04" target="_blank"><span class="fa fa-linkedin"></span></a></li>
+                                <li><a href="https://github.com/dinhgiaandev" target="_blank"><span class="fa fa-github"></span></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <script src="~/Content/assets/styles/bootstrap4/popper.js"></script>
+    <script src="~/Content/assets/styles/bootstrap4/bootstrap.min.js"></script>
+    <script src="~/Content/assets/plugins/Isotope/isotope.pkgd.min.js"></script>
+    <script src="~/Content/assets/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+    <script src="~/Content/assets/plugins/easing/easing.js"></script>
+    <script src="~/Content/assets/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="~/Content/assets/js/custom.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jsShopping.js"></script>
+    @RenderSection("scripts", required: false)
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

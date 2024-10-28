@@ -1,0 +1,87 @@
+﻿@*@model QL_CHSXM.Models.EF.Order
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+</section>
+
+<section class="content" style="margin: 0px 40px 20px 40px">
+    <div class="card">
+        <div class="card-body">
+            <div class="bs-stepper-content">
+                @using (Html.BeginForm("Add", "BookService", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div id="logins-part" class="content active dstepper-block" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên khách hàng</label>
+                            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control", @placeholder = "Nhập họ và tên" })
+                            @Html.ValidationMessageFor(x => x.FullName, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại khách hàng</label>
+                            @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @placeholder = "Nhập số điện thoại" })
+                            @Html.ValidationMessageFor(x => x.Phone, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email khách hàng</label>
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Nhập email" })
+                            @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Tên của phương tiện</label>
+                            @Html.TextBoxFor(x => x.NameCar, new { @class = "form-control", @placeholder = "Nhập tên xe" })
+                            @Html.ValidationMessageFor(x => x.NameCar, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group" id="product-dropdown" name="ProductIds">
+                            @Html.LabelFor(model => model.ProductIds, "Chọn phụ tùng", htmlAttributes: new { @class = "control-label col-md-6" })
+                            @Html.ListBoxFor(model => model.ProductIds, ViewBag.Products as MultiSelectList, new { @class = "form-control select2", @id = "product-dropdown", multiple = "multiple" })
+                            @Html.ValidationMessageFor(model => model.ProductIds, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group" id="service-dropdown" name="ServiceIds">
+                            @Html.LabelFor(model => model.ServiceIds, "Chọn dịch vụ", htmlAttributes: new { @class = "control-label col-md-6" })
+                            @Html.ListBoxFor(model => model.ServiceIds, ViewBag.Services as MultiSelectList, new { @class = "form-control select2", @id = "service-dropdown", multiple = "multiple" })
+                            @Html.ValidationMessageFor(model => model.ServiceIds, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Chọn thời gian hẹn</label>
+                            <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                @Html.TextBoxFor(x => x.BookingDate, new { @class = "form-control datetimepicker-input", @data_target = "#reservationdatetime" })
+                                <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.BookingDate, null, new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label for="totalPrice">Tổng tiền:</label>
+                            <input type="text" id="totalPrice" class="form-control" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <a href="@Url.Action("Index")" class="btn btn-danger">Quay lại</a>
+                            <button type="submit" class="btn btn-primary">Tạo lịch hẹn</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<div>
+    @Html.ActionLink("Quay lại", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@

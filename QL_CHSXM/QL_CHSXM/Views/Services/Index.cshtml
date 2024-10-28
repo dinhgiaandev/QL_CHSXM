@@ -1,0 +1,93 @@
+﻿@model IEnumerable<QL_CHSXM.Models.EF.Service>
+@{
+    ViewBag.Title = "Dịch vụ";
+}
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cd1d1d;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/categories_responsive.css">
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/home">Trang chủ</a></li>
+                    <li class="active"><a href="/dich-vu"><i class="fa fa-angle-right" aria-hidden="true"></i>Dịch vụ</a></li>
+                </ul>
+            </div>
+
+            <div class="main_content">
+
+                <!-- Products -->
+
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col">
+
+                            <!-- Product Grid -->
+
+                            <div class="product-grid">
+
+                                <!-- Hiển thị dịch vụ -->
+                                @if (Model != null && Model.Any())
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var strImge = "";
+                                        var img = item.ServiceImage.FirstOrDefault(x => x.IsDefault);
+                                        if (img != null)
+                                        {
+                                            strImge = img.Image;
+                                        }
+                                        <div class="product-item @item.ServiceCategory.Alias" style="margin-right: 10px">
+                                            <div class="product discount product_filter">
+                                                <div class="product_image">
+                                                    <img src="@strImge" alt="@item.Title" style="width:220px; height: 180px">
+                                                </div>
+                                                <div class="product_info">
+                                                    <h6 class="product_name"><a href="/chi-tiet/@item.Alias-p@(item.Id)">@item.Title</a></h6>
+                                                    @if (item.PriceSale > 0)
+                                                    {
+                                                        <div class="product_price">@QL_CHSXM.Common.Common.FormatNumber(item.PriceSale, 0)<span style="text-decoration:none; color: black" ;font-size: 15px">đ</span><span>@QL_CHSXM.Common.Common.FormatNumber(item.Price, 0)</span><span style="font-size: 15px">đ</span></div>
+                                                        <div style="display:none;" class="in_product_price"> @item.PriceSale<span style="font-size: 15px">đ</span></div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="product_price">@QL_CHSXM.Common.Common.FormatNumber(item.Price, 0)<p><b style="color: black">đ</b></p></div>
+                                                        <div style="display:none;" class="in_product_price"> @item.Price<span style="font-size: 15px">đ</span></div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="red_button add_to_cart_button"><a href="/bookservice/add" class="btnAddToCartt" data-id="@item.Id">Đặt lịch</a></div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section style="width: 100%; margin-bottom: 100px"></section>
+
+@section scripts{
+    <script src="~/Content/assets/js/categories_custom.js"></script>
+}

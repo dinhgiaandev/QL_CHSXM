@@ -1,0 +1,213 @@
+﻿@model QL_CHSXM.Models.EF.BookService
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+
+    decimal totalProductPrice = 0;
+    decimal totalServicePrice = 0;
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/scroll.css">
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cd1d1d;
+    }
+
+    .table-custom {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .table-custom th,
+        .table-custom td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table-custom th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .table-custom tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .table-custom tr:hover {
+            background-color: #ddd;
+        }
+
+        .table-custom th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+            .table-custom th:nth-child(1), .table-custom td:nth-child(1) {
+                width: 5%;
+            }
+
+            .table-custom th:nth-child(2), .table-custom td:nth-child(2) {
+                width: 35%;
+            }
+
+            .table-custom th:nth-child(3), .table-custom td:nth-child(3) {
+                width: 35%;
+            }
+            .table-custom th:nth-child(4), .table-custom td:nth-child(4) {
+                width: 20%;
+            }
+</style>
+
+<section style="width: 100%; height: 50px"></section>
+
+<div class="wrapper" style="margin-right: 210px">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="invoice p-3 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>
+                                        <i class="fas fa-globe"></i> SBTC Store.
+                                        <small class="float-right">Ngày in hóa đơn: @DateTime.Now.ToString("dd/MM/yyyy")</small>
+                                    </h4>
+                                    <p>Người tạo hóa đơn: <strong style="font-size: 1.2rem">Admin</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="row invoice-info">
+                                <div class="col-sm-5 invoice-col">
+                                    Từ
+                                    <address>
+                                        <strong>Admin, SBTC.</strong><br>
+                                        828 Sư Vạn Hạnh, Quận 10, thành phố Hồ Chí Minh.<br>
+                                        (+84) 85656-2424<br>
+                                        sbtcstore@support.com
+                                    </address>
+                                </div>
+                                <div class="col-sm-3 invoice-col">
+                                    Tới
+                                    <address>
+                                        <strong>@Model.FullName</strong><br>
+                                        @Model.Phone<br>
+                                        @Model.Email
+                                    </address>
+                                </div>
+                                <div class="col-sm-4 invoice-col">
+                                    Ngày đặt lịch: @Model.CreatedDate.ToString("dd/MM/yyyy")<br>
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin-top: 30px">
+                                <div class="col-12 table-responsive">
+                                    <h5 style="text-align: center">Phụ tùng</h5>
+                                    <table class="table-custom">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên phụ tùng</th>
+                                                <th>Loại</th>
+                                                <th>Giá tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Products != null && Model.Products.Any())
+                                            {
+                                                int index = 1; // Biến đếm số thứ tự
+                                                foreach (var product in Model.Products)
+                                                {
+                                                    <tr>
+                                                        <td>@index</td> <!-- Hiển thị số thứ tự -->
+                                                        <td>@product.Title</td>
+                                                        <td>@product.ProductCategory.Title</td>
+                                                        <td>@QL_CHSXM.Common.Common.FormatNumber(product.Price, 0) <span>&nbsp;đ</span></td>
+                                                    </tr>
+                                                    totalProductPrice += product.Price;
+                                                    index++; // Tăng biến đếm
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="4" style="text-align: center; color: red;">Không chọn phụ tùng!</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+
+                                    <h5 style="text-align: center">Dịch vụ</h5>
+                                    <table class="table-custom">
+                                        <thead>
+                                            <tr>
+                                                <th>STT</th>
+                                                <th>Tên dịch vụ</th>
+                                                <th>Loại</th>
+                                                <th>Giá tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Services != null && Model.Services.Any())
+                                            {
+                                                int index = 1; // Biến đếm số thứ tự
+                                                foreach (var service in Model.Services)
+                                                {
+                                                    <tr>
+                                                        <td>@index</td> <!-- Hiển thị số thứ tự -->
+                                                        <td>@service.Title</td>
+                                                        <td>@service.ServiceCategory.Title</td>
+                                                        <td>@QL_CHSXM.Common.Common.FormatNumber(service.Price, 0) <span>&nbsp;đ</span></td>
+                                                    </tr>
+                                                    totalServicePrice += service.Price;
+                                                    index++; // Tăng biến đếm
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="4" style="text-align: center; color: red;">Không chọn dịch vụ!</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <th>Tổng cộng: @QL_CHSXM.Common.Common.FormatNumber(totalProductPrice + totalServicePrice, 0) <span>&nbsp;đ</span></th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row no-print">
+                                <div class="col-12">
+                                    <a href="javascript:window.print();" class="btn btn-default"><i class="fas fa-print"></i> In hóa đơn</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

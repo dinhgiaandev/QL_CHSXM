@@ -1,0 +1,170 @@
+﻿@model PagedList.IPagedList<QL_CHSXM.Models.EF.Order>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+}
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/order" class="nav-link">Danh sách đơn hàng</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+</section>
+
+<!-- Main content -->
+<section class="content" style="margin: 60px 45px 0 45px">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-tools">
+                <a href="/admin/order/CreateInvoice" style="background-color: #2f8deb; padding: 7px 10px; border-radius: 7px; color: white">Tạo đơn hàng</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="modern-table table table-hover">
+                <thead>
+                    <tr style="font-size: 1.3rem">
+                        <th style="width: 2%; text-align: center;">STT</th>
+                        <th style="width: 10%; text-align: center; border-left: 1px solid #ddd;">Mã đơn hàng</th>
+                        <th style="width: 10%; text-align: center; border-left: 1px solid #ddd;">Tên Khách hàng</th>
+                        <th style="width: 5%; text-align: center; border-left: 1px solid #ddd;">SĐT</th>
+                        <th style="width: 5%; text-align: center; border-left: 1px solid #ddd;">Giá tiền</th>
+                        <th style="width: 10%; text-align: center; border-left: 1px solid #ddd;">Trạng thái</th>
+                        <th style="width: 5%; text-align: center; border-left: 1px solid #ddd;">Ngày tạo</th>
+                        <th style="width: 15%; text-align: center; border-left: 1px solid #ddd;">Thực hiện</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = ((ViewBag.Page - 1) * ViewBag.PageSize) + 1;
+                        foreach (var item in Model)
+                        {
+                            <tr style="font-size: 1.1rem">
+                                <td style="text-align: left;">@i</td>
+                                <td style="border-left: 1px solid #ddd;">#@item.Code</td>
+                                <td style="border-left: 1px solid #ddd;">@item.CustomerName</td>
+                                <td style="border-left: 1px solid #ddd;">@item.Phone</td>
+                                <td style="border-left: 1px solid #ddd;">@QL_CHSXM.Common.Common.FormatNumber(item.TotalAmount, 0)<span style="font-size: 15px"> &nbsp; đ</span></td>
+                                <td style="border-left: 1px solid #ddd;">@(item.TypePayment==1?"Chờ thành toán":"Đã thanh toán")</td>
+                                <td style="border-left: 1px solid #ddd;">@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                <td style="border-left: 1px solid #ddd;">
+                                    <a href="/admin/order/view/@item.Id" style="background-color: #099628; padding: 5px 25px; border-radius: 7px; color: white">Xem</a>
+                                    <a href="#" class="btnCapNhat" style="background-color: #cc591b; padding: 5px 25px; border-radius: 7px; color: white" data-id="@item.Id">Cập nhật</a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6" style="text-align:right;">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cập nhật trạng thái</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtOrderId" value="0" />
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select class="form-control" id="ddTrangThai">
+                        <option value="1">
+                            Chờ thanh toán
+                        </option>
+                        <option value="2">
+                            Đã thanh toán
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="btnLuu">Lưu</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<style>
+    .modern-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd; /* Thin border */
+        margin-top: 1rem; /* Add some margin for spacing */
+    }
+
+        .modern-table th, .modern-table td {
+            padding: 10px;
+        }
+
+        .modern-table thead th {
+            text-align: left;
+            background-color: #f7ede1; /* Light background for headers */
+            font-weight: bold;
+        }
+
+        .modern-table tbody tr:hover {
+            background-color: #e0e0e0; /* Change background color on hover */
+        }
+</style>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnCapNhat', function () {
+                var id = $(this).data("id");
+                $('#txtOrderId').val(id);
+                $('#modal-default').modal('show');
+            });
+
+            $('body').on('click', '#btnLuu', function () {
+                var id = $('#txtOrderId').val();
+                var tt = $('#ddTrangThai').val();
+                $.ajax({
+                    url: '/admin/order/UpdateTT',
+                    type: 'POST',
+                    data: { id: id, trangthai: tt },
+                    success: function (res) {
+                        if (res.Success) {
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

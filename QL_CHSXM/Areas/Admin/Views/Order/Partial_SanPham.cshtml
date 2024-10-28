@@ -1,0 +1,30 @@
+﻿@model IEnumerable<QL_CHSXM.Models.EF.OrderDetail>
+@if (Model != null && Model.Any())
+{
+    int i = 1;
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Product.Title</td>
+                    <td>@String.Format("{0:#,##0}", item.Price)<span> &nbsp;đ</span></td>
+                    <td>@item.Quantity</td>
+                    <td>@QL_CHSXM.Common.Common.FormatNumber((item.Price * item.Quantity), 0) <span> &nbsp;đ</span></td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}

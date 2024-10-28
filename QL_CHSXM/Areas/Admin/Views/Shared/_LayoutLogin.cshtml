@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon -->
+    <link rel="icon" type="team10" href="~/Content/assets/images/favicon-login-admin.ico">
+    <title>Admin | Đăng nhập hệ thống</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/assets/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/Content/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/assets/dist/css/adminlte.min.css">
+    <!-- Custom styles -->
+    <style>
+        body {
+            background-image: url(/Content/assets/images/bg-login.jpg);
+            background-size: cover;
+            backdrop-filter: blur(0.1px);
+            height: 100vh;
+        }
+
+        .login-box {
+            background-image: linear-gradient(135deg, #f5d0d7, #b6f2f0, #ebe9b0);
+            width: 400px;
+            height: 450px;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+            margin: auto;
+            margin-top: 50px;
+            padding: 20px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-logo b {
+            font-size: 2.3rem;
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold;
+        }
+
+        .card {
+            margin-top: 20px;
+        }
+
+        .form-control {
+            height: 45px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            height: 40px;
+        }
+    </style>
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo text-center" style="margin-top: 20px; margin-bottom: 40px">
+            <b>Đăng nhập hệ thống</b>
+        </div>
+        <div class="card">
+            @RenderBody()
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+    <!-- jQuery -->
+    <script src="~/Content/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/assets/dist/js/adminlte.min.js"></script>
+</body>
+</html>

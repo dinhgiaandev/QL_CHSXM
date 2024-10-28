@@ -1,0 +1,267 @@
+﻿@model IEnumerable<QL_CHSXM.Models.ApplicationUser>
+
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using Microsoft.AspNet.Identity.Owin
+@using QL_CHSXM.Models
+
+@{
+    ViewBag.Title = "Quản lý tài khoản";
+    var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    .content {
+        margin: 60px 45px 0 20px;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: #3c8dbc;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .btn-add {
+        background-color: #2f8deb;
+        padding: 7px 10px;
+        border-radius: 7px;
+        color: white;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+        .btn-add:hover {
+            background-color: #2176bd;
+        }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .modern-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd;
+        margin-top: 1rem;
+    }
+
+        .modern-table th, .modern-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .modern-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .modern-table tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+    .btn {
+        padding: 5px 10px;
+        border-radius: 7px;
+        color: white;
+        text-decoration: none;
+        margin-right: 5px;
+        font-size: 0.9rem;
+    }
+
+    .btn-view {
+        background-color: #099628;
+    }
+
+    .btn-edit {
+        background-color: #099628;
+    }
+
+    .btn-update {
+        background-color: #cc591b;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: flex-end;
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 3px;
+        }
+
+            .pagination a:hover {
+                background-color: #007bff;
+                color: white;
+            }
+
+    .modal-content {
+        border-radius: 8px;
+    }
+
+    .modal-header {
+        background-color: #3c8dbc;
+        color: white;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+    .modal-footer {
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+</style>
+
+<!-- Your existing Razor view code -->
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link" style="color: cornflowerblue; font-weight: 520">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+
+<section class="content-header">
+</section>
+
+<!-- Main content -->
+<section class="content" style="margin: 60px 45px 0 45px">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-tools">
+                <a href="/admin/account/create" style="background-color: #2f8deb; padding: 7px 10px; border-radius: 7px; color: white">Thêm mới</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="modern-table table table-hover" style="font-size: 1.3rem">
+                <thead>
+                    <tr>
+                        <th style="width: 5%; text-align: center;">STT</th>
+                        <th style="width: 15%; text-align: center; border-left: 1px solid #ddd;">Tài khoản</th>
+                        <th style="width: 20%; text-align: center; border-left: 1px solid #ddd;">Họ và tên</th>
+                        <th style="width: 20%; text-align: center; border-left: 1px solid #ddd;">Email</th>
+                        <th style="width: 25%; text-align: center; border-left: 1px solid #ddd;">Vai trò</th>
+                        <th style="width: 15%; text-align: center; border-left: 1px solid #ddd;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        var i = 1;
+                        foreach (var user in Model)
+                        {
+                            var userRoles = userManager.GetRoles(user.Id);
+                            <tr id="trow_@user.Id" style="font-size: 1.1rem">
+                                <td style="text-align: left;">@i</td>
+                                <td style="border-left: 1px solid #ddd;">@user.UserName</td>
+                                <td style="border-left: 1px solid #ddd;">@user.FullName</td>
+                                <td style="border-left: 1px solid #ddd;">@user.Email</td>
+                                <td style="border-left: 1px solid #ddd;">
+                                    @foreach (var roleName in userRoles)
+                                    {
+                                        <span class="badge badge-primary" style="font-size: 1rem;margin-top: 3px">@roleName</span>
+                                    }
+                                </td>
+                                <td style="text-align: left; border-left: 1px solid #ddd;">
+                                    <a href="/admin/account/edit/@user.Id" title="Sửa"><i class="fas fa-edit"></i></a>
+                                    <a href="#" data-user="@user.UserName" data-id="@user.Id" class="btnDelete" title="Xóa"><i class="fas fa-trash-alt" style="color: #cc591b;"></i></a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
+
+<style>
+    .modern-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd; /* Thin border */
+        margin-top: 1rem; /* Add some margin for spacing */
+    }
+
+        .modern-table th, .modern-table td {
+            padding: 10px;
+        }
+
+        .modern-table thead th {
+            text-align: left;
+            background-color: #f7ede1; /* Light background for headers */
+            font-weight: bold;
+        }
+
+        .modern-table tbody tr:hover {
+            background-color: #e0e0e0; /* Change background color on hover */
+        }
+</style>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.btnDelete').click(function () {
+                var user = $(this).data('user');
+                var id = $(this).data('id');
+                $.ajax({
+                    url: '/admin/account/DeleteAccount',
+                    type: 'POST',
+                    data: { user: user, id: id },
+                    success: function (res) {
+                        if (res.Success) {
+                            $('#trow_' + id).remove();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}

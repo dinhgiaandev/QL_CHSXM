@@ -1,0 +1,84 @@
+﻿@model PagedList.PagedList<QL_CHSXM.Models.EF.News>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Tin tức";
+}
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cd1d1d;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_responsive.css">
+<style>
+    .news_section_container {
+        margin-top: 180px;
+    }
+
+    .row-item-new {
+        margin-bottom: 20px;
+    }
+
+    .title-news {
+        font-size: 24px;
+        border-bottom: 1px solid;
+        padding: 15px 0;
+        margin-bottom: 25px;
+    }
+
+    .img-box img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
+
+
+
+<div class="container news_section_container">
+    <div class="breadcrumbs d-flex flex-row align-items-center" style="margin-top: -30px">
+        <ul>
+            <li><a href="/home">Trang chủ</a></li>
+            <li class="active"><a href="/dich-vu"><i class="fa fa-angle-right" aria-hidden="true"></i>Dịch vụ</a></li>
+        </ul>
+    </div>
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="row row-item-new">
+                <div class="col-md-3">
+                    <div class="img-box">
+                        <a href="" title="@item.Title"><img src="@item.Image" alt="@item.Title" /></a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="content-box">
+                        <h3><a href="/@item.Alias-n@(item.Id)" title="@item.Title">@item.Title</a></h3>
+                        <div class="description-box">
+                            @item.Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <section style="width: 100%; height: 1px; margin-bottom: 55px"></section>
+        <div class="row">
+            <div class="col-6"></div>
+            <div class="col-6" style="text-align:right; font-size: 1rem; margin-bottom: 100px">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    }
+</div>
+

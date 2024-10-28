@@ -1,0 +1,102 @@
+﻿@model QL_CHSXM.Models.EF.Order
+@using PagedList;
+@{
+    ViewBag.Title = "Chi tiết hóa đơn";
+}
+@section naviheader{
+    <!-- Các liên kết trong thanh điều hướng bên trái -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Chi tiết hóa đơn</a>
+        </li>
+    </ul>
+}
+
+<!-- Nội dung chính -->
+<section class="content">
+
+    <!-- Hộp mặc định -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title" style="font-size: 30px">Chi tiết hóa đơn</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Mã hóa đơn</label>
+                        <p class="form-control">#@Model.Code</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Họ tên khách hàng</label>
+                        <p class="form-control">@Model.CustomerName</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tổng tiền</label>
+                        <p class="form-control">@QL_CHSXM.Common.Common.FormatNumber(Model.TotalAmount, 0) đ</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <p class="form-control">@Model.Phone</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Ngày tạo</label>
+                        <p class="form-control">@Model.CreatedDate.ToString("dd/MM/yyyy")</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <p class="form-control">@Model.Email</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Trạng thái</label>
+                        <p class="form-control">@(Model.TypePayment == 1 ? "Chuyển khoản" : "COD")</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Danh sách sản phẩm</h2>
+                </div>
+                <div class="col-12">
+                    @Html.Action("Partial_SanPham", "Order", new { id = Model.Id })
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-12">
+                    <a href="@Url.Action("Invoice", "Order", new { id = Model.Id })" class="btn btn-sm btn-info" data-id="@Model.Id">Xuất hoá đơn</a>
+                </div>
+            </div>*@
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->

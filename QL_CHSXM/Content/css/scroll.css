@@ -1,0 +1,14 @@
+﻿<style >
+html {
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cd1d1d;
+}
+
+</style >

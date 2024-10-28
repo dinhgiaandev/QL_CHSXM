@@ -1,0 +1,120 @@
+﻿@model PagedList.IPagedList<QL_CHSXM.Models.EF.Product>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Warehouse";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/scroll.css">
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link" style="color: cornflowerblue; font-weight: 520">Kho hàng</a>
+        </li>
+    </ul>
+}
+
+<div>
+    <section style="width: 100%; height: 15px"></section>
+    <div class="header-center">
+        <h2 style="font-family: Roboto; font-size: 2rem">Kho Hàng SBTC Store</h2>
+        <img src="~/Content/assets/images/sbtc.png" style="margin-top: -35px">
+    </div>
+
+    <section class="content" style=" margin: -50px 0px 40px 30px">
+        <table class="modern-table table table-hover center-table" style="width: 1400px">
+            <thead>
+                <tr style="font-size: 1.2rem">
+                    <th style="width: 2%; text-align: center; border-left: 1px solid #ddd;">STT</th>
+                    <th style="width: 20%; text-align: center; border-left: 1px solid #ddd;">Tên phụ tùng</th>
+                    <th style="width: 20%; text-align: center; border-left: 1px solid #ddd;">Danh mục</th>
+                    <th style="width: 20%; text-align: center; border-left: 1px solid #ddd;">Hình ảnh</th>
+                    <th style="width: 15%; text-align: center; border-left: 1px solid #ddd;">Số lượng còn</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var i = 1; // Khởi tạo biến i bên ngoài vòng lặp foreach
+                    foreach (var item in Model)
+                    {
+                        var strImg = "";
+                        var CheckImage = item.ProductImage.FirstOrDefault(x => x.IsDefault);
+
+                        if (CheckImage != null)
+                        {
+                            strImg = CheckImage.Image;
+                        }
+
+                        <tr style="font-size: 1.1rem">
+                            <td style="border-left: 1px solid #ddd;">@i</td>
+                            <td style="border-left: 1px solid #ddd;">@item.Title</td>
+                            <td style="border-left: 1px solid #ddd;">@item.ProductCategory.Title</td>
+                            <td style="border-left: 1px solid #ddd; text-align: center;">
+                                <img class="imgproduct" data-id="@item.Id" src="@strImg" width="130" height="100" />
+                            </td>
+                            <td style="border-left: 1px solid #ddd;">@item.Quantity</td>
+                        </tr>
+
+                        i++; // Tăng giá trị của i sau mỗi lần lặp
+                    }
+                }
+            </tbody>
+        </table>
+        <div style="text-align:right; margin-right: 55px">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+        </div>
+    </section>
+</div>
+<section style="width: 100%; height: 1px"></section>
+
+<style>
+    .header-center {
+        text-align: center;
+        margin-bottom: 20px; /* Optional: thêm khoảng cách dưới */
+    }
+
+    .modern-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #ddd; /* Thin border */
+        margin-top: 1rem; /* Add some margin for spacing */
+    }
+
+        .modern-table th, .modern-table td {
+            padding: 10px;
+        }
+
+        .modern-table thead th {
+            text-align: left;
+            background-color: #f7ede1; /* Light background for headers */
+            font-weight: bold;
+        }
+
+        .modern-table tbody tr:hover {
+            background-color: #e0e0e0; /* Change background color on hover */
+        }
+
+    .center-table {
+        margin: 0 auto; /* Đây là thuộc tính căn giữa theo chiều ngang */
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 9px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cd1d1d;
+    }
+</style>
+}

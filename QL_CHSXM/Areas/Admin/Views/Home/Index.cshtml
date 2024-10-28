@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Trang chủ admin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/scroll.css">
+<link href="~/Content/css/homeAdmin.css" rel="stylesheet" />
+<div class="slideshow-container">
+
+    <div class="mySlides">
+        <img src="~/Content/assets/images/background_motorcyle.jpg" alt="Banner Home 1" style="background-size: cover">
+    </div>
+
+    <div class="mySlides">
+        <img src="~/Content/assets/images/motor1.jpg" alt="Banner Home 2" style="background-size: cover">
+    </div>
+
+    <div class="mySlides">
+        <img src="~/Content/assets/images/motor2.jpg" alt="Banner Home 3" style="background-size: cover">
+    </div>
+
+</div>
+<br>
+
+<div class="dot-container" style="text-align:center">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+
+<script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            slides[i].classList.remove("slide");
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        slides[slideIndex - 1].classList.add("slide");
+        dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 2700);
+    }
+</script>

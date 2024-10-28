@@ -1,0 +1,183 @@
+﻿@model QL_CHSXM.Models.EF.Product
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/single_responsive.css">
+@if (Model != null)
+{
+
+
+    <div class="container single_product_container">
+        <div class="row">
+            <div class="col">
+
+                <!-- Breadcrumbs -->
+
+                <div class="breadcrumbs d-flex flex-row align-items-center">
+                    <ul>
+                        <li><a href="/">Trang chủ</a></li>
+                        <li><a href="/danh-muc-san-pham/@Model.ProductCategory.Alias-@Model.ProductCategoryId"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.ProductCategory.Title</a></li>
+                        <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                @if (Model.ProductImage != null && Model.ProductImage.Any())
+                {
+                    <div class="single_product_pics">
+                        <div class="row">
+                            <div class="col-lg-2 thumbnails_col order-lg-1 order-2">
+                                <div class="single_product_thumbnails">
+                                    <ul>
+                                        @foreach (var item in Model.ProductImage)
+                                        {
+                                            if (item.IsDefault)
+                                            {
+                                                <li class="active"><img src="@item.Image" alt="" data-image="@item.Image"></li>
+                                            }
+                                            else
+                                            {
+                                                <li><img src="@item.Image" alt="" data-image="@item.Image"></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-10 image_col order-lg-2 order-1">
+                                <div class="single_product_image" style="height: 555px; width: 603px">
+                                    <div class="single_product_image_background" style="background-image:url(@Model.ProductImage.FirstOrDefault(x=>x.IsDefault).Image)"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="col-lg-4">
+                <div class="product_details">
+                    <div class="product_details_title">
+                        <h2>@Model.Title</h2>
+                        <p>@Model.Description</p>
+                    </div>
+                    @if (Model.PriceSale > 0)
+                    {
+                        <div class="original_price">@QL_CHSXM.Common.Common.FormatNumber(Model.Price, 0)<span> &nbsp;đ</span></div>
+                        <div class="product_price">@QL_CHSXM.Common.Common.FormatNumber(Model.PriceSale, 0)<span> &nbsp;đ</span></div>
+                    }
+                    else
+                    {
+                        <div class="product_price">@QL_CHSXM.Common.Common.FormatNumber(Model.Price, 0)<span> &nbsp;đ</span></div>
+                    }
+                    <ul class="star_rating">
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                        <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                    </ul>
+
+                    <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+                        <span>Số lượng:</span>
+                        <div class="quantity_selector">
+                            <span class="minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                            <span id="quantity_value">1</span>
+                            <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                        </div>
+                        <div class="red_button add_to_cart_button"><a href="#" class="btnAddToCart" data-id="@Model.Id">Thêm vào giỏ hàng</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="tabs_section_container">
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="tabs_container">
+                        <ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+                            <li class="tab active" data-active-tab="tab_1"><span>Mô tả</span></li>
+                            <li class="tab" data-active-tab="tab_3"><span>Đánh giá</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+
+                    <!-- Tab Description -->
+
+                    <div id="tab_1" class="tab_container active">
+                        <div class="row">
+                            @Html.Raw(Model.Detail)
+                        </div>
+                    </div>
+
+                    <!-- Tab Additional Info -->
+                    <!-- Tab Reviews -->
+
+                    <div id="tab_3" class="tab_container" style="background-color: #e2dae3">
+                        <div class="row">
+
+                            <!-- User Reviews -->
+
+                            <div class="col-lg-12 reviews_col" style="margin-top: 30px;">
+                                <!-- User Review -->
+
+                                <div class="user_review_container d-flex flex-column flex-sm-row" style="margin-left: 15px">
+                                    <div class="user">
+                                        <div class="user_pic" style="background-image: url('../../Content/assets/images/rv1.jpg');"></div>
+                                        <div class="user_rating">
+                                            <ul class="star_rating">
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="review">
+                                        <div class="user_name" style="font-size: 25px">Nguyễn Nam Phương</div>
+                                        <p style="font-size: 17px">Thật sự thì lâu rồi Phương mới thấy được gara thật sự quá oke như vầy. Không có gì để mà chê.</p>
+                                    </div>
+                                </div>
+
+                                <!-- User Review -->
+
+                                <div class="user_review_container d-flex flex-column flex-sm-row" style="margin-left: 15px">
+                                    <div class="user">
+                                        <div class="user_pic" style="background-image: url('../../Content/assets/images/rv2.jpg');"></div>
+                                        <div class="user_rating">
+                                            <ul class="star_rating">
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="review">
+                                        <div class="user_name"  style="font-size: 25px">Lê Văn Đoàn</div>
+                                        <p style="font-size: 17px">Biết được tiệm  này đã lâu, nay mới có dịp trải nghiệm thử, từ thái độ đến phục vụ quá tốt. Mình rất thích nơi này. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+}
+@section scripts{
+    <script src="~/Content/assets/js/single_custom.js"></script>
+}

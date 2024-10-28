@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Trang chủ admin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/homeAdmin.css" rel="stylesheet" />
+<div class="slideshow-container">
+
+    <div class="mySlides slide">
+        <img src="~/Content/assets/images/banner-Home.jpg" alt="Banner Home 1">
+    </div>
+
+    <div class="mySlides slide">
+        <img src="~/Content/assets/images/bannerHome2.jpg" alt="Banner Home 2">
+    </div>
+
+    <div class="mySlides slide">
+        <img src="~/Content/assets/images/bannerHome3.jpg" alt="Banner Home 3">
+    </div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+
+<script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            slides[i].classList.remove("slide");
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        slides[slideIndex - 1].classList.add("slide");
+        dots[slideIndex - 1].className += " active";
+        setTimeout(showSlides, 3500); // Change image every 2 seconds
+    }
+</script>

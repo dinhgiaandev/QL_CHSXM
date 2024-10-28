@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QL_CHSXM.Models.ShoppingCartItem>
+@using QL_CHSXM.Common
+
+@if (Model != null && Model.Any())
+{
+    <h3 style="text-align:center; font-size: 35px">HÓA ĐƠN<span style="float:right;position:relative; font-family: Roboto; font-weight: 600"></span></h3>
+    var i = 1; // Bắt đầu từ số 1
+    var tongtien = decimal.Zero;
+    var vat = decimal.Zero;
+
+    <div style="border:1px solid #808080;">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td colspan="2"><b>Các sản phẩm: </b></td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    tongtien += item.TotalPrice;
+                    vat += item.VAT;
+                    <tr>
+                        <td>@(i++). @item.ProductName</td>
+                        <td>@Common.FormatNumber(item.Price, 0) x @item.Quantity &nbsp;<span style="font-size: 15px">đ</span></td>
+                    </tr>
+                }
+                <tr>
+                    <td><b>VAT (10%):</b></td>
+                    <td>@Common.FormatNumber(vat, 0) đ</td>
+                </tr>
+                <tr>
+                    <td><b>Tổng tiền (bao gồm VAT):</b></td>
+                    <td>@Common.FormatNumber(tongtien, 0) đ</td> <!-- Tổng tiền sau khi cộng VAT -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div>
+        Bạn chưa có sản phẩm nào trong giỏ hàng.
+    </div>
+}

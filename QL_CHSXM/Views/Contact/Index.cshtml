@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Liên hệ";
+}
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cd1d1d;
+    }
+</style>
+
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_responsive.css">
+
+<div class="container contact_container">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="/home">Trang chủ</a></li>
+                    <li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Liên hệ</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Liên hệ -->
+
+    <div class="row" style="background-image: url('../../Content/assets/images/background-contact.jpg');">
+        <div class="col" style="margin-top: 60px; margin-left: 20px;">
+            <h2 style="text-align: center; color: #020659; font-family: 'Oswald', sans-serif; margin-bottom: 50px">Thông tin liên hệ</h2>
+            <p style="font-size: 19px">Tên: SBTC Store</p>
+            <p style="font-size: 19px">Số điện thoại:<a href="tel:+84856562424">+84 856 56 2424</a></p>
+            <p style="font-size: 19px">Email: <a href="mailto:dinhgiaanforwork@gmail.com" style="text-decoration:none">sbtcstore@support.com</a></p>
+        </div>
+        <!-- Map -->
+        <div class="col" style="margin-top: 60px; margin-right: 20px">
+            <div id="google_map">
+                <div class="map_container">
+                    <div id="map">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d599.7033901568806!2d106.66708751593147!3d10.77612827891397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752edb765b5c25%3A0x9a3519bdad5a85a3!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBOZ2_huqFpIG5n4buvIC0gVGluIGjhu41jIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCAoSFVGTElUKQ!5e0!3m2!1svi!2s!4v1699698763250!5m2!1svi!2s" width="650" height="530" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/assets/js/contact_custom.js"></script>
+}

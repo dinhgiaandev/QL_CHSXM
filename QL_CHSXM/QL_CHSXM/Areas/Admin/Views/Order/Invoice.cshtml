@@ -1,0 +1,131 @@
+﻿@model QL_CHSXM.Models.EF.Order
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cd1d1d;
+    }
+</style>
+
+<section style="width: 100%; height: 50px"></section>
+
+<div class="wrapper" style="margin-right: 210px">
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="invoice p-3 mb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h4>
+                                        <i class="fas fa-globe"></i> SBTC Store.
+                                        <small class="float-right">Ngày: @DateTime.Now.ToString("dd/MM/yyyy")</small>
+                                    </h4>
+                                    <p>Người tạo hóa đơn: <strong style="font-size: 1.2rem">Admin</strong></p>
+                                </div>
+                            </div>
+
+                            <div class="row invoice-info">
+                                <div class="col-sm-4 invoice-col">
+                                    Từ
+                                    <address>
+                                        <strong>Admin, SBTC.</strong><br>
+                                        828 Sư Vạn Hạnh, Quận 10, thành phố Hồ Chí Minh.<br>
+                                        Phone: (+84) 85656-2424<br>
+                                        Email: sbtcstore@support.com
+                                    </address>
+                                </div>
+                                <div class="col-sm-4 invoice-col">
+                                    Tới
+                                    <address>
+                                        <strong>@Model.CustomerName</strong><br>
+                                        @Model.Address<br>
+                                        Phone: @Model.Phone<br>
+                                        Email: @Model.Email
+                                    </address>
+                                </div>
+                                <div class="col-sm-4 invoice-col">
+                                    <b>Mã hóa đơn:</b> #@Model.Code<br>
+                                    <b>Ngày thanh toán:</b> @Model.CreatedDate.ToString("dd/MM/yyyy")<br>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Số lượng</th>
+                                                <th>Tên</th>
+                                                <th>Mô tả</th>
+                                                <th>Tổng cộng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ decimal totalPrice = 0;
+                                                foreach (var item in Model.OrderDetails)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Quantity</td>
+                                                        <td>@item.Product.Title</td>
+                                                        <td>@item.Product.Description</td>
+                                                        <td>@QL_CHSXM.Common.Common.FormatNumber((item.Price * item.Quantity), 0) <span> &nbsp;đ</span></td>
+                                                    </tr>
+                                                    totalPrice += item.Price * item.Quantity;
+                                                } }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                                <div class="col-6">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tr>
+                                                <th style="width:50%">Tổng tiền:</th>
+                                                <td>
+                                                    @QL_CHSXM.Common.Common.FormatNumber(totalPrice, 0) <span> &nbsp;đ</span>
+                                                </td>
+                                            </tr>
+                                            @*<tr>
+                                                <th>Phí giao hàng:</th>
+                                                <td>Miễn phí</td>
+                                            </tr>*@
+                                            <tr>
+                                                <th>Tổng cộng:</th>
+                                                <td> @QL_CHSXM.Common.Common.FormatNumber(totalPrice, 0) <span> &nbsp;đ</span></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- XUẤT -->
+                    <div class="row no-print">
+                        <div class="col-12">
+                            <a href="https://localhost:44375/Admin/Order/PrintInvoice/1" rel="noopener" target="_self" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+
+                            @*<button type="button" class="btn btn-danger float-right" style="margin-right: 10px;">
+            <i class="fas fa-download"></i> Xuất file PDF
+        </button>*@
+                            @*<button type="button" class="btn btn-success float-right" style="margin-right: 10px; margin-left: 10px">
+            <i class="fas fa-download"></i> Xuất file Excel
+        </button>*@
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

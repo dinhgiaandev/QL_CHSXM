@@ -1,0 +1,35 @@
+﻿@model QL_CHSXM.Models.IndexViewModel
+@{
+    ViewBag.Title = "Thiết lập";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/contact_responsive.css">
+<div style="height: 50px"></div>
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Mật khẩu:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Đổi mật khẩu", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Tạo mật khẩu", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>External Logins:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Thiết lập", "ManageLogins") ]
+        </dd>
+
+    </dl>
+</div>

@@ -1,0 +1,67 @@
+﻿@model QL_CHSXM.Models.EF.ServiceCategory
+@{ ViewBag.Title = "Thêm mới danh mục dịch vụ";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml"; }
+
+
+<link rel="stylesheet" type="text/css" href="~/Content/css/scroll.css">
+
+@section naviheader{
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/servicecategory" class="nav-link">Danh mục dịch vụ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Thêm mới</a>
+        </li>
+    </ul>
+}
+
+<!-- Content -->
+<section class="content">
+    <div class="card">
+        <div class="card-body">
+            @using (Html.BeginForm("Add", "ServiceCategory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title)
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control", @placeholder = "Nhập tiêu đề" })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Alias)
+                                    @Html.TextBoxFor(model => model.Alias, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Alias, "", new { @class = "text-danger" })
+                                </div>
+                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                                                <a href="/admin/servicecategory" class="btn btn-danger">Quay lại</a>}
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+@section  scripts{
+        <script src="~/Scripts/jsConvert.js"></script>
+        <script>
+            $(document).ready(function () {
+                CKEDITOR.replace('txtDetail', {
+                    customConfig: '/content/ckeditor/config.js',
+                    extraAllowedContent: 'span',
+                });
+            });
+            function BrowseServer(field) {
+                var finder = new CKFinder();
+                finder.selectActionFunction = function (fileUrl) {
+                    document.getElementById(field).value = fileUrl;
+                };
+                finder.popup();
+            }
+
+        </script>
+}

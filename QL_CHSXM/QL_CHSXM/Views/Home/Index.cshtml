@@ -1,0 +1,274 @@
+﻿@using System.Web;
+@{
+    ViewBag.Title = "Trang chủ";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/assets/styles/main_styles.css">
+<link href="~/Content/css/style.css" rel="stylesheet" />
+<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cd1d1d;
+    }
+
+    .background-wrapper {
+        position: relative;
+        width: 980px; /* Độ rộng của div */
+        height: 100%; /* Độ cao của div */
+        margin-right: -330px; /* Căn lề phải */
+        overflow: hidden; /* Ẩn phần vượt ra ngoài */
+    }
+
+        .background-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Content/assets/images/imgHome3.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            filter: blur(3px); /* Độ mờ */
+            z-index: -1; /* Lớp nền để nằm dưới nội dung chính */
+        }
+
+    .btnBookService {
+        background-color: #1782cf;
+        border-radius: 4px;
+        font-family: Roboto;
+        font-weight: bolder;
+        width: 130px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+        .btnBookService:hover {
+            background-color: #fffcfd;
+            cursor: pointer;
+        }
+
+        .btnBookService a:hover {
+            color: #04292b;
+        }
+
+        .btnBookService a {
+            color: #eddfe2;
+            font-size: 0.9rem;
+            text-decoration: none; /* Loại bỏ gạch chân của link */
+        }
+
+
+    .main_slider_content {
+        position: relative;
+    }
+
+    .overlay {
+        background: rgba(141, 138, 139, 0.9); /* Gray color with 50% transparency */
+        padding: 20px;
+        border-radius: 10px; /* Optional: add rounded corners to the overlay */
+        display: inline-block; /* To make sure the overlay only covers the content */
+    }
+
+        .overlay h3,
+        .overlay .btnBookService {
+            position: relative;
+            z-index: 1;
+        }
+</style>
+
+<!-- Slider -->
+
+<div class="main_slider" style="background-image:url('/Content/assets/images/background_motorcyle.jpg'); background-attachment: fixed; background-repeat: no-repeat; height: 750px">
+    <div class="container fill_height">
+        <div class="row align-items-center fill_height">
+            <div class="col">
+                <div class="main_slider_content" style="margin-top: -30px; position: relative;">
+                    <!-- Overlay div -->
+                    <div class="overlay">
+                        <h3 style="color: #ffabce; font-family: 'Roboto Slab', sans-serif; ">Mùa Hè/ Các Ưu Đãi Hấp Dẫn </h3>
+                        <h3 style="color: #ffabce; font-family: 'Roboto Slab', sans-serif; ">Giảm đến 6% khi lần đầu thanh toán!</h3>
+                        <div class="btnBookService" style="border-radius: 4px; font-family: Roboto; font-weight: bolder; margin-top: 20px; margin-left: 170px">
+                            <a href="/bookservice/add" style="font-family:Roboto ; font-size: 1rem; width: 130px; height: 30px; margin-top: 8px">Đặt lịch ngay</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Deal of the week -->
+<div class="deal_ofthe_week" style="margin-top: 1px; width: 100%; height: 560px">
+    <div class="container" style="width: 100%;">
+        <div class="row align-items-center" style="width: 100%;">
+            <div class="col-lg-6" style="padding: 0">
+                <div class="deal_ofthe_week_img" style="background-image: url('/Content/assets/images/motor1.jpg'); background-size: cover; background-repeat: no-repeat; height: 560px; width: 960px; margin-left: -320px">
+                </div>
+            </div>
+            <div class="col-lg-6" style="padding: 0; position: relative; margin-left: -7px">
+                <div class="deal_ofthe_week_img" style="height: 500px; width: 100%; position: relative">
+                    <div class="background-wrapper" style="height: 560px; margin-top: -60px">
+                        <div style="background-image: url('/Content/assets/images/motor2.jpg'); background-size: cover; background-repeat: no-repeat; height: 100%; width: 100%; filter: blur(1.3px); position: absolute; top: 0; left: 0; margin-right: -330px; width: 980px; height: 560px">
+                        </div>
+                    </div>
+                    <div class="deal_ofthe_week_content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #e1e3e6;">
+                        <div style="margin-left: 350px">
+                            <div class="section_title" style="margin-top: 0;">
+                                <h2 style="font-family: Roboto, sans-serif; color: #e09b69; margin-top: 90px; letter-spacing: 1px ">ƯU ĐÃI CUỐI TUẦN</h2>
+                            </div>
+                            <ul class="timer" style="padding: 0; list-style: none; display: flex; justify-content: center">
+                                <li class="d-inline-flex flex-column justify-content-center align-items-center" style="background-color: #3e4247; margin: 0 5px; padding: 10px; border-radius: 500px;">
+                                    <div id="hour" class="timer_num">23</div>
+                                    <div class="timer_unit" style="color: #cc6441">Giờ</div>
+                                </li>
+                                <li class="d-inline-flex flex-column justify-content-center align-items-center" style="background-color: #3e4247; margin: 0 5px; padding: 10px; border-radius: 500px; ">
+                                    <div id="minute" class="timer_num">59</div>
+                                    <div class="timer_unit" style="color: #cc6441">Phút</div>
+                                </li>
+                                <li class="d-inline-flex flex-column justify-content-center align-items-center" style="background-color: #3e4247; margin: 0 5px; padding: 10px; border-radius: 500px; ">
+                                    <div id="second" class="timer_num">11</div>
+                                    <div class="timer_unit" style="color: #cc6441">Giây</div>
+                                </li>
+                            </ul>
+                            <div class="btnBookService" style="border-radius: 4px; font-family: Roboto; font-weight: bolder; margin-left: 130px; margin-top: 20px">
+                                <a href="/bookservice/add" style="font-family:Roboto ; font-size: 1rem; width: 130px; height: 30px; margin-top: 8px">Đặt lịch ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-12 text-right deal_ofthe_week_col">
+                <!-- Nội dung khác nếu có -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Team Start -->
+<div class="container-xxl pt-5 pb-3">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal" style="font-family: 'PT Serif', serif; ">CÁC THÀNH VIÊN</h5>
+            <h1 class="mb-5" style="font-family: 'Pacifico', cursive; ">Những nhân viên tiêu biểu </h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item text-center rounded overflow-hidden">
+                    <div class="rounded-circle overflow-hidden m-4">
+                        <img class="img-fluid" src="~/Content/assets/images/man1.jpg" alt="" style="height: 230px">
+                    </div>
+                    <h5 class="mb-0" style="font-family: 'PT Serif', serif;">Michael Brown</h5>
+                    <small>Michael Brown là một thợ sửa chữa xe máy với kinh nghiệm lâu năm và đặc biệt là chuyên gia về các dòng xe thể thao và đua xe. Anh ấy có khả năng nắm bắt nhanh chóng và chính xác các sự cố phức tạp trên xe và sửa chữa hiệu quả, bền vững. </small>
+                    <div class="d-flex justify-content-center mt-3">
+                        <a class="btn btn-square btn-primary mx-1" href="https://www.facebook.com/theblindcook/"><i class="fa fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/theblindcook/"><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href="https://twitter.com/theblindcook"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item text-center rounded overflow-hidden">
+                    <div class="rounded-circle overflow-hidden m-4">
+                        <img class="img-fluid" src="~/Content/assets/images/man22.jpg" alt="" style="height: 230px">
+                    </div>
+                    <h5 class="mb-0" style="font-family: 'PT Serif', serif;">Thomas Anderson</h5>
+                    <small>Là một kỹ thuật viên xe máy với niềm đam mê mãnh liệt dành cho nghề nghiệp của mình. Anh ấy chủ yếu tập trung vào các dòng xe phân khối lớn và luôn nỗ lực tối đa để tối ưu hóa hiệu suất động cơ và hệ thống treo. Thomas có khả năng phân tích sâu sắc.</small>
+                    <div class="d-flex justify-content-center mt-3">
+                        <a class="btn btn-square btn-primary mx-1" href="https://www.facebook.com/lukenguyensworld"><i class="fa fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/lukenguyencooks/"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="team-item text-center rounded overflow-hidden">
+                    <div class="rounded-circle overflow-hidden m-4">
+                        <img class="img-fluid" src="~/Content/assets/images/man33.jpg" alt="" style="height: 230px">
+                    </div>
+                    <h5 class="mb-0" style="font-family: 'PT Serif', serif;">Daniel Garcia</h5>
+                    <small>Daniel là một chuyên gia về xe điện và công nghệ xe thông minh. Anh ấy luôn theo đuổi các xu hướng mới nhất trong ngành công nghệ và áp dụng chúng vào việc sửa chữa và cải tiến các tính năng của xe máy để giúp giảm thiểu tác động đến môi trường.</small>
+                    <div class="d-flex justify-content-center mt-3">
+                        <a class="btn btn-square btn-primary mx-1" href="https://www.facebook.com/chefphamtuanhai"><i class="fa fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href="https://www.instagram.com/haichef/"><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="team-item text-center rounded overflow-hidden">
+                    <div class="rounded-circle overflow-hidden m-4">
+                        <img class="img-fluid" src="~/Content/assets/images/man4.png" alt="" style="height: 230px">
+                    </div>
+                    <h5 class="mb-0" style="font-family: 'PT Serif', serif;">Alexander Martinez</h5>
+                    <small>Alexander là một kỹ thuật viên chuyên về các dòng xe cổ điển và xe phân khối lớn. Anh ấy được biết đến với kỹ năng nâng cấp và tu sửa các loại xe có giá trị lịch sử, mang lại sự hài lòng cao cho các chủ xe yêu thích sự độc đáo và cổ điển.</small>
+                    <div class="d-flex justify-content-center mt-3">
+                        <a class="btn btn-square btn-primary mx-1" href="https://www.facebook.com/cheftinhhai"><i class="fa fa-facebook-f"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fa fa-twitter"></i></a>
+                        <a class="btn btn-square btn-primary mx-1" href=""><i class="fa fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+<!-- Best Sellers -->
+@Html.Action("Partial_ProductSales", "Products")
+<!-- Benefit -->
+
+<div class="benefit">
+    <div class="container">
+        <div class="row benefit_row" style="background-color: #c2f0e3">
+            <div class="col-lg-3 benefit_col" style="background-color: #c2f0e3">
+                <div class="benefit_item d-flex flex-row align-items-center" style="background-color: #c2f0e3">
+                    <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Giao hàng miễn phí</h6>
+                        <p>Nhanh chóng trong 30 phút</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col" style="background-color: #c2f0e3">
+                <div class="benefit_item d-flex flex-row align-items-center" style="background-color: #c2f0e3">
+                    <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Thanh toán tiện lợi</h6>
+                        <p>Tiền mặt hoặc chuyển khoản</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col" style="background-color: #c2f0e3">
+                <div class="benefit_item d-flex flex-row align-items-center" style="background-color: #c2f0e3">
+                    <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Dịch vụ hoàn trả</h6>
+                        <p>Hoàn sản phẩm trong vòng 1 tiếng</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col" style="background-color: #c2f0e3">
+                <div class="benefit_item d-flex flex-row align-items-center" style="background-color: #c2f0e3">
+                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Mở cửa cả tuần</h6>
+                        <p>8:00 - 20:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Action("Partial_Subcrice", "Home")
