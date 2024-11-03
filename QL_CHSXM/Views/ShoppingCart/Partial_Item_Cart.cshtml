@@ -46,7 +46,7 @@
                 </td>
                 <td>@item.CategoryName</td>
                 <td>@Common.FormatNumber(item.Price, 0)&nbsp;<span style="font-size: 15px">đ</span></td>
-                <td><input type="number" class="form-control" id="Quantity_@item.ProductId" value="@item.Quantity" /></td>
+                <td><input type="number" class="form-control" id="Quantity_@item.ProductId" value="@item.Quantity" min="1" oninput="handleQuantityChange(this)" onblur="handleQuantityChange(this)" /></td>
                 <th>@Common.FormatNumber(item.TotalPrice, 2)&nbsp;<span 15px>đ</span></th>
                 <td>
                     <a href="#" data-id="@item.ProductId" class="btn btnDelete" style="background-color: #d4d9ca">Xóa</a>
@@ -70,3 +70,16 @@
     }
 </table>
 <section style="width: 100%; height: 65px"></section>
+
+<script>
+    function handleQuantityChange(input) {
+        // Chuyển giá trị nhập thành số nguyên
+        let value = parseInt(input.value);
+
+        // Kiểm tra nếu giá trị nhỏ hơn 1 hoặc không phải là số
+        if (isNaN(value) || value < 1) {
+            alert("Số lượng không thể nhỏ hơn 1!!!");
+            input.value = 1; // Đặt lại giá trị về 1 nếu nhập giá trị nhỏ hơn 1
+        }
+    }
+</script>

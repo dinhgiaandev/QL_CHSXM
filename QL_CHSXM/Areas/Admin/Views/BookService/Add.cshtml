@@ -157,7 +157,7 @@
             function updateTotalPrice() {
                 var totalPrice = 0;
 
-                // Tính tổng giá dịch vụ
+                // tính tổng giá dịch vụ
                 $('#service-dropdown option:selected').each(function() {
                     var serviceId = $(this).val();
                     var service = services.find(s => s.Id == serviceId);
@@ -166,7 +166,7 @@
                     }
                 });
 
-                // Tính tổng giá phụ tùng
+                // tính tổng giá phụ tùng
                 $('#product-dropdown option:selected').each(function() {
                     var productId = $(this).val();
                     var product = products.find(p => p.Id == productId);
@@ -175,7 +175,7 @@
                     }
                 });
 
-                // Hiển thị tổng tiền
+                // tổng tiền
                 $('#totalPrice').val(totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
             }
 
