@@ -15,7 +15,7 @@ namespace QL_CHSXM.Areas.Admin.Controllers
         public ActionResult Index(int? page)
         {
             var pageNumber = page ?? 1;
-            var pageSize = 10; // Thay đổi kích thước trang theo yêu cầu
+            var pageSize = 10;
 
             var customers = db.BookServices.ToList();
 
@@ -25,8 +25,8 @@ namespace QL_CHSXM.Areas.Admin.Controllers
                 {
                     FullName = g.Key.FullName,
                     Phone = g.Key.Phone,
-                    Email = g.First().Email, // Có thể tùy chỉnh để lấy email nào đó hoặc gộp các email
-                    NameCar = string.Join(", ", g.Select(c => c.NameCar).Distinct()), // Gộp chung các tên phương tiện và loại bỏ trùng lặp
+                    Email = g.First().Email,
+                    NameCar = string.Join(", ", g.Select(c => c.NameCar).Distinct()),
                     VisitCount = g.Count()
                 })
                 .ToPagedList(pageNumber, pageSize);

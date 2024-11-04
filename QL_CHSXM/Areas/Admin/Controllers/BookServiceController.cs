@@ -71,7 +71,7 @@ namespace QL_CHSXM.Areas.Admin.Controllers
                 model.CreatedDate = DateTime.Now;
                 model.ModifiedDate = DateTime.Now;
 
-                // Thêm từng dịch vụ được chọn
+                // thêm dịch vụ được chọn
                 if (model.ServiceIds != null && model.ServiceIds.Any())
                 {
                     foreach (var serviceId in model.ServiceIds)
@@ -84,7 +84,7 @@ namespace QL_CHSXM.Areas.Admin.Controllers
                     }
                 }
 
-                // Thêm từng sản phẩm được chọn
+                // thêm sản phẩm được chọn
                 if (model.ProductIds != null && model.ProductIds.Any())
                 {
                     foreach (var productId in model.ProductIds)
